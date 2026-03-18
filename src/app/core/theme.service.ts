@@ -5,11 +5,6 @@ export type ThemeMode = 'light' | 'dark';
 
 const STORAGE_KEY = 'todo-theme-preference';
 
-/**
- * Tema de la app: solo claro u oscuro.
- * Persiste en localStorage y refleja en `document.documentElement[data-theme]`
- * para alinear con DaisyUI antes del primer render del toggle.
- */
 @Injectable()
 export class ThemeService {
   private readonly platformId = inject(PLATFORM_ID);
