@@ -1,0 +1,26 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+
+// Variables CSS para uso en HTML/Tailwind arbitrario si hace falta
+:root {
+  --font-sans: #{$font-sans};
+  --font-mono: #{$font-mono};
+  --color-surface-base: #{$color-surface-base};
+  --color-text-primary: #{$color-text-primary};
+  --color-text-muted: #{$color-text-muted};
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: $line-height-normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  /* DaisyUI define --color-base-100 / --color-base-content por tema */
+  background-color: var(--color-base-100, #{$color-surface-base});
+  color: var(--color-base-content, #{$color-text-primary});
+}

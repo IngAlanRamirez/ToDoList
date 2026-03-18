@@ -1,59 +1,89 @@
 # ToDoList
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+Aplicación web de lista de tareas construida con **Angular 21** (standalone, sin Zone.js en el flujo principal), **Tailwind CSS 4** y **DaisyUI 5**. Incluye routing, página de inicio y selector de tema claro/oscuro persistente.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+| Herramienta | Versión indicativa |
+|-------------|-------------------|
+| Node.js     | 20+ (recomendado) |
+| npm         | 10+               |
+
+## Inicio rápido
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abre [http://localhost:4200](http://localhost:4200). El servidor recarga al guardar cambios.
 
-## Code scaffolding
+## Scripts
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Comando | Descripción |
+|---------|-------------|
+| `npm start` | Servidor de desarrollo (`ng serve`) |
+| `npm run build` | Build de producción → `dist/` |
+| `npm run watch` | Build en modo desarrollo con watch |
+| `npm test` | Tests (Vitest) una pasada + cobertura; umbrales mínimos **85%** |
+| `npm run test:watch` | Tests en watch (útil en local) |
 
-```bash
-ng generate component component-name
+Informes de cobertura HTML/LCOV en `coverage/` (suele estar en `.gitignore`).
+
+## Stack
+
+| Capa | Tecnología |
+|------|------------|
+| Framework | Angular 21 |
+| Estilos | Tailwind 4 (`@tailwindcss/postcss`), DaisyUI 5 |
+| Sass | Tokens y mixins globales (`src/styles/`) |
+| Tests | Vitest + `@vitest/coverage-v8` vía `ng test` |
+
+## Estructura relevante
+
+```
+src/
+├── app/
+│   ├── core/theme.service.ts   # Tema + localStorage
+│   ├── home/                   # Ruta raíz
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   └── app.html                # Shell + navbar (toggle tema)
+├── styles.css                  # Tailwind + plugin DaisyUI
+└── styles.scss                 # @use de variables / base
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Tema claro / oscuro
+
+El usuario elige **solo claro u oscuro** (no hay modo sistema). En la navbar: toggle DaisyUI con iconos sol/luna.
+
+- Detalle de implementación: [`docs/tema.md`](docs/tema.md)
+- Historial de cambios del feature: [`CHANGELOG.md`](CHANGELOG.md)
+
+## Estilos y componentes
+
+- **Globales**: `styles.css` importa Tailwind; `styles.scss` aplica base y tokens.
+- **Parciales**: `_variables.scss`, `_mixins.scss`, `_index.scss` en `src/styles/`.
+- En **componentes** `.scss`, preferí rutas relativas, por ejemplo:
+
+```scss
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+```
+
+## Generar código (Angular CLI)
 
 ```bash
+ng generate component nombre-componente
 ng generate --help
 ```
 
-## Building
+## Referencias
 
-To build the project run:
+- [Angular](https://angular.dev/) · [CLI](https://angular.dev/tools/cli)
+- [Tailwind CSS v4](https://tailwindcss.com/docs) · [DaisyUI](https://daisyui.com/)
+- [Vitest](https://vitest.dev/)
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+_Generado inicialmente con Angular CLI 21._

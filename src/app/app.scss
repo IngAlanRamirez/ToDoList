@@ -1,0 +1,8 @@
+// Ruta relativa: el Sass de componentes no siempre hereda includePaths como el global
+@use '../styles/variables' as *;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  font-family: $font-sans;
+}

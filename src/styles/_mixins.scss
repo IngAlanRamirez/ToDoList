@@ -1,0 +1,44 @@
+// Mixins reutilizables — @use 'styles/mixins' as *;
+@use 'variables' as *;
+
+/// Mobile-first: aplica desde el breakpoint indicado (min-width).
+@mixin respond-from($name) {
+  $min: map-get($breakpoints, $name);
+  @if $min == null {
+    @warn "Breakpoint `#{$name}` no existe en $breakpoints.";
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+}
+
+/// Hasta el breakpoint (max-width), útil para overrides puntuales.
+@mixin respond-until($name) {
+  $min: map-get($breakpoints, $name);
+  @if $min == null {
+    @warn "Breakpoint `#{$name}` no existe.";
+  } @else {
+    @media (max-width: calc(#{$min} - 0.02px)) {
+      @content;
+    }
+  }
+}
+
+@mixin focus-ring {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}

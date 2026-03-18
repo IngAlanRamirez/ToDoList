@@ -8,7 +8,11 @@
   "projects": {
     "ToDoList": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,8 +29,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
-            ]
+              "src/styles.css",
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            }
           },
           "configurations": {
             "production": {
@@ -65,7 +73,30 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "providersFile": "src/test-providers.ts"
+          },
+          "configurations": {
+            "ci": {
+              "watch": false,
+              "coverage": true,
+              "coverageReporters": ["text", "text-summary", "html", "lcov"],
+              "coverageExclude": [
+                "**/*.spec.ts",
+                "**/*.test.ts",
+                "src/main.ts",
+                "src/test-providers.ts"
+              ],
+              "coverageThresholds": {
+                "statements": 85,
+                "branches": 85,
+                "functions": 85,
+                "lines": 85
+              }
+            }
+          }
         }
       }
     }
